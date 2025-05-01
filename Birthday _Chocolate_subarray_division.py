@@ -1,4 +1,5 @@
-"""Subarray Division (Birthday Chocolate)
+"""
+Subarray Division (Birthday Chocolate)
 
 Two children, Lily and Ron, want to share a chocolate bar. 
 Each of the squares has an integer on it.
