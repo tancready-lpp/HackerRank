@@ -67,11 +67,37 @@ def pickingNumbers(a):
     else:
         return counts[max_key] 
 
+# --- CHAT GPT --- #
+def pickingNumbers(a):      
+    # Count occurrences of each number
+    counts = {}
+    for num in a:
+        counts[num] = counts.get(num, 0) + 1
+
+    # Find the maximum length of a valid subarray
+    max_length = 0
+    for num in counts:
+        # Current number count
+        current_length = counts[num]
+
+        # Add adjacent numbers if they exist
+        if num + 1 in counts:
+            current_length = max(current_length, counts[num] + counts[num + 1])
+        if num - 1 in counts:
+            current_length = max(current_length, counts[num] + counts[num - 1])
+
+        # Update max length found
+        max_length = max(max_length, current_length)
+
+    return max_length
+
+# Test cases
 a = [4, 6, 5, 3, 3, 1]
 b = [4,4,4,4,4,4]
 c = [4,5,4,5,4,5,4,5]
 d = [1,2,3,4]
 e = [1,1,1,2,2,2,2,3]
-ex =[a,b,c,d,e]
+ex = [a, b, c, d, e]
+
 print(pickingNumbers(e), "result")
 print(pickingNumbers([4, 2, 3, 4, 4, 9, 98, 98, 3, 3, 3, 4, 2, 98, 1, 98, 98, 1, 1, 4, 98, 2, 98, 3, 9, 9, 3, 1, 4, 1, 98, 9, 9, 2, 9, 4, 2, 2, 9, 98, 4, 98, 1, 3, 4, 9, 1, 98, 98, 4, 2, 3, 98, 98, 1, 99, 9, 98, 98, 3, 98, 98, 4, 98, 2, 98, 4, 2, 1, 1, 9, 2, 4]), "result")

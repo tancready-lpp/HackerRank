@@ -60,5 +60,53 @@ After Alice finishes game 3, her score is 120 and her ranking is 1.
 """
 
 
+
 def climbingLeaderboard(ranked, player):
-    
+    r = dict()
+    r = dict.fromkeys(ranked,0)
+    for kval in ranked:
+        if kval in r:
+            r[kval]+=1
+        else:
+            r[kval] = 1
+    r0 = dict(zip(r.keys(), [i for i in range(1,len(r)+1)]))
+    rank = []
+    for play in player:
+        if play in r0:
+            rank.append(r0[play])
+        else:
+            r0[play] = 0
+            i=0
+            while play < list(r0.keys())[i]:
+                i+=1
+            rank.append(i+1)    
+        r0.pop(play)
+    return print(rank)
+
+
+
+# --- Faster CHATGPT approach --- #
+def climbingLeaderboard(ranked, player):
+    # Remove duplicates and create a descending leaderboard
+    unique_ranks = sorted(set(ranked), reverse=True)
+    rank = []
+    n = len(unique_ranks)
+    i = n - 1  # Start from the end of the leaderboard
+
+    # Iterate through each player score
+    for score in player:
+        # Move up the leaderboard as long as the player score is greater
+        while i >= 0 and score >= unique_ranks[i]:
+            i -= 1
+        # Rank is 1 more than the current position
+        rank.append(i + 2)
+
+    return rank
+
+ranked = [100, 90, 90, 80, 75, 60]
+player = [50, 65, 77, 90, 102]
+
+ranked = [500, 400, 400, 300, 200, 150, 100]
+player = [50, 150, 250, 500, 600]
+
+climbingLeaderboard(ranked, player)
